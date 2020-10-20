@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "505959048623",
+    "firebase_url": "https://hdartalkauth.firebaseio.com",
+    "project_id": "hdartalkauth",
+    "storage_bucket": "hdartalkauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505959048623:android:56487e6c91a1c1bb1d3b5a",
+        "android_client_info": {
+          "package_name": "com.example.hdartalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505959048623-07iicajlupbv0pv3ian64166eag8vs6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmlMbpQy4yt3utVIyTXSWJQSj8ujBjtvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505959048623-07iicajlupbv0pv3ian64166eag8vs6s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

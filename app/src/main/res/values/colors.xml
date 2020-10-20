@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  colors for Note -->
+    <color name="colorPrimary">#FF9800</color>
+    <color name="colorPrimaryDark">#F57C00</color>
+    <color name="colorAccent">#FFC107</color>
+    <color name="view_backg_color">#c7c7C7</color>
+
+    <!--  colors for dark theme -->
+    <color name="colorPrimary_dark">#212121</color>
+    <color name="colorAccent_dark" >#FF9800</color>
+    <color name="colorPrimaryDark_dark" >#DE000000</color>
+
+    <!--  colors Auths -->
+    <color name="white">#ffffff</color>
+    <color name="colorRed">#EB3349</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentWhite">#cccccc</color>
+    <color name="colorStandardBlack">#262626</color>
+    <color name="colorDarkBlue">#001621</color>
+    <color name="colorCyanBlue">#0B9BE2</color>
+    <color name="colorMidBlue">#032B3F</color>
+    <color name="colorCoinBackground">#01242b</color>
+
+    <!-- Intro slides colors -->
+    <color name="colorIntroSlideHeader">#FFFFFF</color>
+    <color name="colorIntroSlideBody">#FFFFFF</color>
+    <color name="colorIntroSlide1Background">#343434</color>
+    <color name="colorIntroSlide2Background">#3B6DB2</color>
+    <color name="colorIntroSlide3Background">#CC8A2D</color>
+    <color name="colorIntroSlide4Background">#1C4E3B</color>
+    <color name="colorIntroSlide5Background">#A82222</color>
+    <color name="colorIntroSlide6Background">#318D9A</color>
+
+
+    <!-- Alert dialog colors -->
+    <color name="colorAlertDialogBackground">#16202A</color>
+    <color name="colorAlertDialogButton">#20A0EE</color>
+    <color name="colorAlertDialogText">#EFEFEF</color>
+
+</resources>

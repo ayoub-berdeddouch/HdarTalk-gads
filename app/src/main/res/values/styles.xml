@@ -1,0 +1,57 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">#fff</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!-- just change the parent -->
+    <style name="AppTheme.Dark" parent="MaterialDrawerTheme">
+        <item name="colorPrimary">@color/colorPrimary_dark</item>
+        <item name="colorAccent">@color/colorAccent_dark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_dark</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+
+    <!--Toolbar theme-->
+    <style name="CustomToolbarStyle" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!--Menu Item Theme-->
+    <style name="CustomPopupStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/white</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
+    </style>
+
+    <!--Input Theme-->
+    <style name="CustomInputStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/colorStandardBlack</item>
+        <item name="android:theme">@color/colorDarkBlue</item>
+    </style>
+
+    <!--Notification Theme-->
+    <style name="DarkAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/colorAlertDialogButton</item>
+        <item name="android:textColorPrimary">@color/colorAlertDialogText</item>
+        <item name="android:background">@color/colorAlertDialogBackground</item>
+    </style>
+
+</resources>

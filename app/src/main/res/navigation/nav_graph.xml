@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginActivity">
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.hdartalk.auths.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" >
+        <action
+            android:id="@+id/action_loginActivity_to_signupActivity"
+            app:destination="@id/signupActivity" />
+        <action
+            android:id="@+id/action_loginActivity_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_loginActivity_to_resetPasswordActivity"
+            app:destination="@id/resetPasswordActivity" />
+    </activity>
+    <activity
+        android:id="@+id/signupActivity"
+        android:name="com.example.hdartalk.auths.SignupActivity"
+        android:label="activity_signup"
+        tools:layout="@layout/activity_signup" >
+        <action
+            android:id="@+id/action_signupActivity_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </activity>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.hdartalk.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" >
+        <action
+            android:id="@+id/action_mainActivity_to_editNoteActivity"
+            app:destination="@id/editNoteActivity" />
+        <action
+            android:id="@+id/action_mainActivity_to_accountActivity"
+            app:destination="@id/accountActivity" />
+    </activity>
+    <activity
+        android:id="@+id/resetPasswordActivity"
+        android:name="com.example.hdartalk.auths.ResetPasswordActivity"
+        android:label="activity_reset_password"
+        tools:layout="@layout/activity_reset_password" />
+    <activity
+        android:id="@+id/editNoteActivity"
+        android:name="com.example.hdartalk.EditNoteActivity"
+        android:label="activity_edite_note"
+        tools:layout="@layout/activity_edite_note" />
+    <activity
+        android:id="@+id/accountActivity"
+        android:name="com.example.hdartalk.auths.AccountActivity"
+        android:label="activity_account"
+        tools:layout="@layout/activity_account" />
+    <activity
+        android:id="@+id/introActivity"
+        android:name="com.example.hdartalk.intro.IntroActivity"
+        android:label="IntroActivity" >
+        <action
+            android:id="@+id/action_introActivity_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </activity>
+</navigation>
