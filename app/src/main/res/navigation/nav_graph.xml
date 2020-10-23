@@ -19,6 +19,15 @@
         <action
             android:id="@+id/action_loginActivity_to_resetPasswordActivity"
             app:destination="@id/resetPasswordActivity" />
+        <action
+            android:id="@+id/action_loginActivity_to_preferencesFragment"
+            app:destination="@id/preferencesFragment" />
+        <action
+            android:id="@+id/action_loginActivity_to_resourcesFragment2"
+            app:destination="@id/resourcesFragment2" />
+        <action
+            android:id="@+id/action_loginActivity_to_statisticsFragment2"
+            app:destination="@id/statisticsFragment2" />
     </activity>
     <activity
         android:id="@+id/signupActivity"
@@ -64,4 +73,19 @@
             android:id="@+id/action_introActivity_to_loginActivity"
             app:destination="@id/loginActivity" />
     </activity>
+    <fragment
+        android:id="@+id/resourcesFragment2"
+        android:name="com.example.hdartalk.navigation.ResourcesFragment"
+        android:label="fragment_resources"
+        tools:layout="@layout/fragment_resources" />
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="com.example.hdartalk.navigation.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/statisticsFragment2"
+        android:name="com.example.hdartalk.navigation.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
 </navigation>

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.hdartalk.MainActivity;
+import com.example.hdartalk.auths.LoginActivity;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.example.hdartalk.R;
 
@@ -46,7 +47,7 @@ public class IntroActivity extends AppIntro2 {
 
         setLaunchedAppBefore();
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra(MainActivity.QUERY_MOOD_PARAMETER, true);
         finish();
         startActivity(intent);

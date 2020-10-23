@@ -14,7 +14,7 @@ import android.os.Bundle;
 
 import com.example.hdartalk.adapters.NotesAdapter;
 import com.example.hdartalk.auths.AccountActivity;
-import com.example.hdartalk.auths.LoginActivity;
+
 import com.example.hdartalk.callbacks.MainActionModeCallback;
 import com.example.hdartalk.callbacks.NoteEventListener;
 import com.example.hdartalk.db.AppDatabase;
@@ -25,14 +25,22 @@ import com.example.hdartalk.intro.IntroActivity;
 import com.example.hdartalk.model.Mood;
 import com.example.hdartalk.model.Note;
 import com.example.hdartalk.model.Resource;
+
+import com.example.hdartalk.navigation.SettingsFragment;
 import com.example.hdartalk.navigation.ResourcesFragment;
+import com.example.hdartalk.navigation.StatisticsFragment;
 import com.example.hdartalk.utils.AlarmReceiver;
 import com.example.hdartalk.utils.NoteUtils;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,10 +48,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.ActionMode;
+
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -51,7 +61,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.google.android.material.navigation.NavigationView;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -62,12 +72,10 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static com.example.hdartalk.EditNoteActivity.NOTE_EXTRA_Key;
 
-public class MainActivity extends AppCompatActivity implements NoteEventListener, Drawer.OnDrawerItemClickListener {
+public class MainActivity extends AppCompatActivity implements NoteEventListener, Drawer.OnDrawerItemClickListener, NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private ArrayList<Note> notes;
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
     private int mCurrentMood = 1;
     private int mCurrentMoodIntensity = 1;
+    private Drawer result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
             startActivity(intent);
             setupResourcesDatabase();
         }
+        registerNotificationChannel();
         //
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -147,7 +157,17 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         }
     }
     //
-
+    /*void setupBottomNavigation() {
+        /**
+         * Links the BottomNavigationView element to the NavController that controls
+         * the NavHost containing all the top-level UI fragments. The NavController
+         * is then used to switch between UIs/fragments.
+         */
+     /*   BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupWithNavController(bottomNav, navController);
+    }
+    */
     //
     void setupResourcesDatabase() {
         /**
@@ -207,6 +227,35 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
         Toast.makeText(this, "Resource database loaded", Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_resources:
+                getSupportFragmentManager().beginTransaction().replace(R.id.resources_layout, new ResourcesFragment())
+                        .commit();
+                break;
+            case R.id.nav_statistics:
+                getSupportFragmentManager().beginTransaction().replace(R.id.static_layout, new StatisticsFragment())
+                        .commit();
+                break;
+            case R.id.nav_preference:
+                //((PreferenceActivity)getActivity()).startPreferenceFragment(new PreferencesFragment(), true);
+                getSupportFragmentManager().beginTransaction().replace(R.id.settings_layout, new SettingsFragment())
+                        .commit();
+                break;
+            case R.id.nav_notes:
+                startActivity(new Intent(MainActivity.this, EditNoteActivity.class));
+                break;
+
+            case R.id.nav_profile:
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
+                break;
+        }
+        return true;
+    }
+
+
     //
     class MoodDialogListener implements DialogInterface.OnClickListener {
         /**
@@ -302,17 +351,16 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         // Navigation menu items
         // List<IDrawerItem> iDrawerItems = new ArrayList<>(); fix error : removed on materialdrawer 7.0.0
         List<IDrawerItem<?>> iDrawerItems = new ArrayList<>();
-        iDrawerItems.add(new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp).withIdentifier(1));
-        iDrawerItems.add(new PrimaryDrawerItem().withName("Account").withIcon(R.drawable.ic_account_circle_24));
+        iDrawerItems.add(new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_home_black_24dp));
+        iDrawerItems.add(new PrimaryDrawerItem().withName("Notes").withIcon(R.drawable.ic_note_black_24dp));
         iDrawerItems.add(new PrimaryDrawerItem().withName("Resources").withIcon(R.drawable.ic_resources));
         iDrawerItems.add(new PrimaryDrawerItem().withName("Statistics").withIcon(R.drawable.ic_statistics));
-        iDrawerItems.add(new PrimaryDrawerItem().withName("Notes").withIcon(R.drawable.ic_note_black_24dp).withIdentifier(2));
+        iDrawerItems.add(new PrimaryDrawerItem().withName("Account Settings").withIcon(R.drawable.ic_account_circle_24));
 
 
 
-        // sticky DrawItems ; footer menu items
 
-        // List<IDrawerItem> stockyItems = new ArrayList<>(); removed on materialdrawer 7.0.0
+
         List<IDrawerItem<?>> stockyItems = new ArrayList<>();
 
         SwitchDrawerItem switchDrawerItem = new SwitchDrawerItem()
@@ -338,25 +386,42 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                 });
 
 
+        /**
+         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+        @Override
+        public boolean onItemClick(@Nullable View view, int i, @NotNull IDrawerItem<?> iDrawerItem) {
+        if(iDrawerItem !=null) {
+        Intent intent = null;
+        if (iDrawerItem.getIdentifier() == 1) {
+        intent = new Intent(MainActivity.this, MainActivity.class);
+        } else if (iDrawerItem.getIdentifier() == 2) {
+        intent = new Intent(MainActivity.this, EditNoteActivity.class);
+        } else if (iDrawerItem.getIdentifier() == 3) {
+        intent = new Intent(MainActivity.this, AccountActivity.class);
+        } else if (iDrawerItem.getIdentifier() == 4) {
+        intent = new Intent(MainActivity.this, ResourcesFragment.class);
+        } else if (iDrawerItem.getIdentifier() == 5) {
+        intent = new Intent(MainActivity.this, StatisticsFragment.class);
+        }
+        if (intent != null) {
+        MainActivity.this.startActivity(intent);
+        }
+        }
+        return false;
+        }
+        })
+         */
+
+
         stockyItems.add(new PrimaryDrawerItem()
-                .withName("Account Settings")
-                .withIcon(R.drawable.ic_settings_black_24dp)
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                .withName("Preferences")
+                .withIcon(R.drawable.ic_settings_black_24dp).withIdentifier(-1)
+                /*.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(@Nullable View view, int i, @NotNull IDrawerItem<?> iDrawerItem) {
                         if(iDrawerItem !=null){
                             Intent intent = null;
-                            if(iDrawerItem.getIdentifier() == 1){
-                                intent = new Intent(MainActivity.this, MainActivity.class);
-                            }else if (iDrawerItem.getIdentifier() == 2) {
-                                intent = new Intent(MainActivity.this, EditNoteActivity.class);
-                            } else if (iDrawerItem.getIdentifier() == 3) {
-                                intent = new Intent(MainActivity.this, ResourcesFragment.class);
-                            } else if (iDrawerItem.getIdentifier() == 4) {
-                                intent = new Intent(MainActivity.this, LoginActivity.class);
-                            } else if (iDrawerItem.getIdentifier() == 5) {
-                                intent = new Intent(MainActivity.this, EditNoteActivity.class);
-                            } else if (iDrawerItem.getIdentifier() == -1) {
+                            if (iDrawerItem.getIdentifier() == -1) {
                                 intent = new Intent(MainActivity.this, AccountActivity.class);
                             }
                             if (intent != null) {
@@ -366,11 +431,11 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                         return false;
                     }
                 }
-            ));
+            )
+            */);
+
 
         stockyItems.add(switchDrawerItem);
-
-
 
 
 
@@ -382,13 +447,13 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                         .withName("Ayoub's Legacy")
                         .withIcon(R.mipmap.ic_launcher_round))
                 .withSavedInstance(savedInstanceState)
-                .withHeaderBackground(R.drawable.ic_launcher_background)
-                .withSelectionListEnabledForSingleProfile(false) // we need just one profile
+                .withHeaderBackground(R.drawable.ic_background)
+                .withSelectionListEnabledForSingleProfile(true) // we need just one profile
                 // TODO  : Add the profile for each login.... 18/10/2020
                 .build();
 
         // Navigation drawer
-        new DrawerBuilder()
+        result = new DrawerBuilder()
                 .withActivity(this) // activity main
                 .withToolbar(toolbar) // toolbar
                 .withSavedInstance(savedInstanceState) // saveInstance of activity
@@ -399,7 +464,9 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                 .withOnDrawerItemClickListener(this) // listener for menu items click
                 .build();
 
-    }
+    }//end SetupNavigation
+
+
 
     private void loadNotes() {
         this.notes = new ArrayList<>();
@@ -441,6 +508,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
@@ -449,14 +517,15 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        onNavigationItemSelected(item);
+        /*int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.nav_profile) {
+
             startActivity(new Intent(MainActivity.this, AccountActivity.class));
 
-        }
-
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -543,10 +612,10 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     }
 
     private void onShareNote() {
-        // TODO: 22/07/2018  we need share just one Note not multi
+        // TODO: 22/10/2020  we need share just one Note not multi
 
         Note note = adapter.getCheckedNotes().get(0);
-        // TODO: 22/07/2018 do your logic here to share note ; on social or something else
+        // TODO: 22/10/2020 do your logic here to share note ; on social or something else
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         String notetext = note.getNoteText() + "\n\n Create on : " +
@@ -559,7 +628,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     }
 
     private void onDeleteMultiNotes() {
-        // TODO: 22/07/2018 delete multi notes
+        // TODO: 22/10/2020 delete multi notes
 
         List<Note> chackedNotes = adapter.getCheckedNotes();
         if (chackedNotes.size() != 0) {
@@ -593,7 +662,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                    // TODO: 28/09/2018 delete note when swipe
+                    // TODO:  delete note when swipe
 
                     if (notes != null) {
                         // get swiped note
@@ -613,7 +682,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // TODO: 28/09/2018 delete note
+                        // TODO: 25/10/2020 delete note
                         dao.deleteNote(swipedNote);
                         notes.remove(swipedNote);
                         adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
@@ -624,7 +693,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // TODO: 28/09/2018  Undo swipe and restore swipedNote
+                        // TODO: 25/10/2020  Undo swipe and restore swipedNote
                         recyclerView.getAdapter().notifyItemChanged(viewHolder.getAdapterPosition());
 
 
@@ -637,7 +706,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
     @Override
     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
+        // TODO: 25/10/2020  Edite onItemClick to change from activity to another and fragment to fragment....
         Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
         return false;
     }

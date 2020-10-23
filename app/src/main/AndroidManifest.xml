@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -22,14 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".EditNoteActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".intro.IntroActivity" />
+
+        <activity android:name=".auths.LoginActivity"/>
         <activity android:name=".auths.SignupActivity" />
         <activity android:name=".auths.ResetPasswordActivity" />
         <activity android:name=".auths.AccountActivity"/>
-        <activity android:name=".auths.LoginActivity"/>
-        <activity android:name=".intro.IntroActivity" />
+
+
         <receiver android:name=".utils.AlarmReceiver" />
     </application>
 

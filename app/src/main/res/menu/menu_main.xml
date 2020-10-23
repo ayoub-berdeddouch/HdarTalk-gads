@@ -1,19 +1,41 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.hdartalk.MainActivity">
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/settings_name"
-        android:icon="@drawable/ic_account_circle_24"
-        app:showAsAction="never" />
-    <item android:id="@+id/resourcesFragment"
-        android:title="@string/menu_resources"
-        android:icon="@drawable/ic_resources"/>
-    <item android:id="@+id/statisticsFragment"
-        android:title="@string/menu_statistics"
-        android:icon="@drawable/ic_statistics"/>
+    tools:context="com.example.hdartalk.MainActivity"
+    >
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle_24"
+            android:title="@string/settings_name"
+            />
+
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/ic_note_black_24dp"
+            android:title="@string/menu_notes" />
+
+        <item
+            android:id="@+id/nav_resources"
+            android:icon="@drawable/ic_resources"
+            android:title="@string/menu_resources" />
+
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_statistics"
+            android:title="@string/menu_statistics" />
+
+    </group>
 
 
+    <item android:title="Others">
+        <menu>
+            <item android:id="@+id/nav_preference"
+                android:title="@string/menu_prefs"
+                android:icon="@drawable/ic_settings_black_24dp"
+                />
+        </menu>
+    </item>
 </menu>
